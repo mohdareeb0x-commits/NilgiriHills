@@ -43,6 +43,11 @@ export const metadata: Metadata = {
     description: 'Experience slow travel at Nilgiri House, a boutique 6-room retreat in the Nilgiri hills.',
     images: ['/og-default.jpg'],
   },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   verification: {
     google: 'google-site-verification-code',
   },
