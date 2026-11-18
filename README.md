@@ -53,25 +53,23 @@ Edit `.env.local` with your Sanity credentials:
 NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
 NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_TOKEN=your-api-token-for-preview
+SANITY_API_WRITE_TOKEN=your-api-token-with-editor-permissions  # Required for migration script
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 ### Development
 
 ```bash
-# Start Next.js dev server
+# Start Next.js dev server (includes Sanity Studio)
 npm run dev
-
-# Start Sanity Studio (in separate terminal)
-npm run dev:sanity
 ```
 
-Visit `http://localhost:3000` for the website and `http://localhost:3333` for Sanity Studio.
+Visit `http://localhost:3000` for the website and `http://localhost:3000/studio` for Sanity Studio (embedded in the app).
 
 ### Sanity Setup
 
 1. Create a new Sanity project at `sanity.io`
-2. Run `npx sanity init` in the project root
+2. Run `npx sanity init` in the project root (select "Use existing project" if already created)
 3. Deploy the schema: `npx sanity deploy`
 4. Add the project ID and dataset to `.env.local`
 
@@ -83,13 +81,13 @@ The schema includes:
 
 ### Seed Data
 
-To populate Sanity with demo content:
+To populate Sanity with demo content, run the migration script (requires `SANITY_API_WRITE_TOKEN` in `.env.local` with Editor permissions):
 
 ```bash
-npx sanity dataset import sanity/seed.ndjson production --replace
+node scripts/migrate-content.mjs
 ```
 
-Or manually create documents in the Studio using the mock data as reference.
+This uploads all images and creates documents for rooms, testimonials, home page, and site settings. Verify in Sanity Studio at `http://localhost:3000/studio` or `https://sanity.io/manage`.
 
 ## Project Structure
 
@@ -204,12 +202,12 @@ This hosts the Studio at `https://nilgiri-house.sanity.studio`
 ## Scripts
 
 ```bash
-npm run dev          # Start Next.js dev server
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run dev:sanity   # Start Sanity Studio dev server
-npm run deploy:sanity # Deploy Sanity Studio
+npm run dev            # Start Next.js dev server (includes Sanity Studio at /studio)
+npm run build          # Production build
+npm run start          # Start production server
+npm run lint           # Run ESLint
+npm run deploy:sanity  # Deploy Sanity Studio to sanity.studio
+node scripts/migrate-content.mjs  # Populate Sanity with demo content
 ```
 
 ## License

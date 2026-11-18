@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "dev:sanity": "sanity dev",
     "deploy:sanity": "sanity deploy"
   },
   "dependencies": {
