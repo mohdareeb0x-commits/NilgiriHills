@@ -5,6 +5,7 @@ import { SanityImage, SanityImageFullBleed } from '@/components/SanityImage'
 import { PortableTextRenderer } from '@/components/PortableText'
 import Link from 'next/link'
 import { urlFor } from '@/lib/sanity'
+import { mockImages } from '@/lib/mock-data'
 import type { HomePage, SiteSettings } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -39,7 +40,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero Section - Full Bleed */}
-      <section className="relative min-h-[90vh] md:min-h-[100vh] flex items-end" aria-labelledby="hero-heading">
+      <section className="relative min-h-[90vh] md:min-h-[100vh] flex items-end" aria-labelledby="hero-heading" style={{ minHeight: '90vh', display: 'flex', alignItems: 'flex-end' }}>
         <SanityImageFullBleed
           source={homePage.heroImage}
           alt={homePage.heroImage?.alt || `${hotelName} - ${tagline}`}
@@ -264,7 +265,11 @@ export default async function HomePage() {
               longitude: 76.7934,
             },
             priceRange: '₹₹₹',
-            image: homePage.heroImage ? urlFor(homePage.heroImage).width(1200).height(800).auto('format').url() : undefined,
+            image: homePage.heroImage ? (
+              homePage.heroImage.asset._ref.startsWith('image-hero')
+                ? mockImages[homePage.heroImage.asset._ref as keyof typeof mockImages]
+                : urlFor(homePage.heroImage).width(1200).height(800).auto('format').url()
+            ) : undefined,
           }),
         }}
       />

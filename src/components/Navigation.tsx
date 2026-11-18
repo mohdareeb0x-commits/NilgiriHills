@@ -30,7 +30,7 @@ export function Navigation({ hotelName, logo }: NavigationProps) {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-        scrolled ? 'bg-forest/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-forest/95 backdrop-blur-sm shadow-lg' : 'bg-forest/30 backdrop-blur-sm'
       }`}
     >
       <nav className="section-wide flex items-center justify-between py-4" aria-label="Main navigation">

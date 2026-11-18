@@ -23,7 +23,7 @@ export const mockSiteSettings = {
 
 export const mockHomePage = {
   heroImage: {
-    asset: { _ref: 'image-hero-1920x1080-jpg' },
+    asset: { _ref: 'image-hero-home-1920x1080-jpg' },
     alt: 'Misty Nilgiri hills at dawn with stone cottage in foreground',
   },
   heroHeadline: 'Nilgiri House',
@@ -384,8 +384,17 @@ export const mockTestimonials = [
 
 // Sanity-style asset references for mock images
 // Format: image-<id>-<width>x<height>-<format>
+// Using verified working Unsplash URLs
 export const mockImages: Record<string, string> = {
-  'image-hero-1920x1080-jpg': 'https://images.unsplash.com/photo-1544731612-de7f96af5b3a?w=1920&q=80',
+  // Hero images for each page - using verified working Unsplash URLs
+  'image-hero-home-1920x1080-jpg': 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1920&q=80',
+  'image-hero-rooms-1920x1080-jpg': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
+  'image-hero-room-1920x1080-jpg': 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80',
+  'image-hero-about-1920x1080-jpg': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80',
+  'image-hero-contact-1920x1080-jpg': 'https://images.unsplash.com/photo-1464822759844-d150bae8584c?w=1920&q=80',
+
+  // Legacy hero image
+  'image-hero-1920x1080-jpg': 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1920&q=80',
   'image-room-1-1200x1500-jpg': 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=1200&q=80',
   'image-room-2-1200x1500-jpg': 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=1200&q=80',
   'image-room-3-1200x1500-jpg': 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80',

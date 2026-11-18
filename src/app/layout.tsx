@@ -75,7 +75,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <Navigation hotelName={settings?.hotelName || 'Nilgiri House'} logo={settings?.logo} />
-        <main className="flex-1 pt-16 md:pt-20">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer
           hotelName={settings?.hotelName || 'Nilgiri House'}
           tagline={settings?.tagline}

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
-import { mockImages } from '@/lib/mock-data'
+import { mockImages } from '@/lib/mock-images-client'
 
 // Define the shape of our Sanity image object
 interface SanityImageAsset {
@@ -99,8 +99,9 @@ export function SanityImage({
   }
 
   if (fill) {
+    // Ensure the container has explicit dimensions for fill to work
     return (
-      <div className={`relative overflow-hidden ${className}`} style={{ width: '100%', height: '100%' }}>
+      <div className={`relative overflow-hidden ${className}`} style={{ width: '100%', height: '100%', minHeight: '100%' }}>
         <Image
           src={finalUrl}
           alt={alt}
@@ -110,6 +111,7 @@ export function SanityImage({
           placeholder="blur"
           blurDataURL={blurUrl}
           className={`object-${objectFit} transition-opacity duration-500`}
+          style={{ objectFit }}
         />
       </div>
     )
@@ -139,7 +141,7 @@ export function SanityImageFullBleed({
   hotspot,
 }: Omit<SanityImageProps, 'width' | 'height' | 'sizes' | 'fill'>) {
   return (
-    <div className={`relative w-screen max-w-none left-1/2 -translate-x-1/2 overflow-hidden ${className}`}>
+    <div className={`absolute inset-0 -z-10 overflow-hidden ${className}`} style={{ width: '100%', height: '100%' }} aria-hidden="true">
       <SanityImage
         source={source}
         alt={alt}

@@ -82,16 +82,14 @@ export default async function AboutPage() {
   return (
     <>
       {/* Page Hero */}
-      <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-end" aria-labelledby="about-hero-heading">
-        <SanityImage
+      <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-end" aria-labelledby="about-hero-heading" style={{ minHeight: '60vh', display: 'flex', alignItems: 'flex-end' }}>
+        <SanityImageFullBleed
           source={{
-            asset: { _ref: 'image-hero-1920x1080-jpg' },
-            alt: 'Misty Nilgiri hills at dawn'
+            asset: { _ref: 'image-hero-about-1920x1080-jpg' },
+            alt: 'Tea estate in Nilgiri hills with misty mountains'
           }}
-          fill
           priority
           objectFit="cover"
-          className="absolute inset-0 -z-10"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent" aria-hidden="true" />
         <div className="relative z-10 w-full section-wide pb-16 md:pb-24">

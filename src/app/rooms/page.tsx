@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
 import { fetchSanity } from '@/lib/sanity'
 import { roomsQuery, siteSettingsQuery } from '@/lib/queries'
-import { SanityImage } from '@/components/SanityImage'
+import { SanityImage, SanityImageFullBleed } from '@/components/SanityImage'
 import Link from 'next/link'
+import { mockImages } from '@/lib/mock-data'
 import type { Room, SiteSettings } from '@/lib/types'
 
 export const metadata: Metadata = {
@@ -27,16 +28,14 @@ export default async function RoomsPage() {
   return (
     <>
       {/* Page Hero */}
-      <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-end" aria-labelledby="rooms-hero-heading">
-        <SanityImage
+      <section className="relative min-h-[60vh] md:min-h-[70vh] flex items-end" aria-labelledby="rooms-hero-heading" style={{ minHeight: '60vh', display: 'flex', alignItems: 'flex-end' }}>
+        <SanityImageFullBleed
           source={{
-            asset: { _ref: 'image-hero-1920x1080-jpg' },
-            alt: 'Misty Nilgiri hills at dawn'
+            asset: { _ref: 'image-hero-rooms-1920x1080-jpg' },
+            alt: 'Stone cottage in Nilgiri hills with tea estate view'
           }}
-          fill
           priority
           objectFit="cover"
-          className="absolute inset-0 -z-10"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent" aria-hidden="true" />
         <div className="relative z-10 w-full section-wide pb-16 md:pb-24">
@@ -145,7 +144,7 @@ export default async function RoomsPage() {
                 description: room.shortDescription,
                 url: `https://nilgirihouse.com/rooms/${room.slug?.current}`,
                 image: room.featuredImage?.asset?._ref
-                  ? `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/${room.featuredImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg')}`
+                  ? mockImages[room.featuredImage.asset._ref as keyof typeof mockImages] || `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/${room.featuredImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg')}`
                   : undefined,
                 offers: {
                   '@type': 'Offer',

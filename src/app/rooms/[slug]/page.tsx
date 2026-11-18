@@ -5,6 +5,7 @@ import { roomBySlugQuery, siteSettingsQuery, roomSlugsQuery } from '@/lib/querie
 import { SanityImage, SanityImageFullBleed } from '@/components/SanityImage'
 import { PortableTextRenderer } from '@/components/PortableText'
 import Link from 'next/link'
+import { mockImages } from '@/lib/mock-data'
 import type { Room, SiteSettings } from '@/lib/types'
 
 interface RoomPageProps {
@@ -25,6 +26,11 @@ export async function generateMetadata({ params }: RoomPageProps): Promise<Metad
     return { title: 'Room Not Found' }
   }
 
+  // Use mock image URL for OG image if available
+  const ogImageUrl = room.featuredImage?.asset?._ref
+    ? mockImages[room.featuredImage.asset._ref as keyof typeof mockImages] || undefined
+    : undefined
+
   return {
     title: room.name,
     description: room.shortDescription,
@@ -32,12 +38,12 @@ export async function generateMetadata({ params }: RoomPageProps): Promise<Metad
       title: `${room.name} — Nilgiri House`,
       description: room.shortDescription,
       type: 'website',
-      images: room.featuredImage?.asset?._ref ? [
+      images: ogImageUrl ? [
         {
-          url: `https://images.unsplash.com/${room.featuredImage.asset._ref}`,
+          url: ogImageUrl,
           width: 1200,
           height: 800,
-          alt: room.featuredImage.alt || room.name,
+          alt: room.featuredImage?.alt || room.name,
         },
       ] : [],
     },
@@ -64,7 +70,7 @@ export default async function RoomDetailPage({ params }: RoomPageProps) {
   return (
     <>
       {/* Hero - Full Bleed Image */}
-      <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-end" aria-labelledby="room-name">
+      <section className="relative min-h-[70vh] md:min-h-[80vh] flex items-end" aria-labelledby="room-name" style={{ minHeight: '70vh', display: 'flex', alignItems: 'flex-end' }}>
         <SanityImageFullBleed
           source={room.featuredImage}
           alt={room.featuredImage?.alt || room.name}
@@ -189,7 +195,7 @@ export default async function RoomDetailPage({ params }: RoomPageProps) {
             description: room.shortDescription,
             url: `https://nilgirihouse.com/rooms/${room.slug.current}`,
             image: room.featuredImage?.asset?._ref
-              ? `https://images.unsplash.com/${room.featuredImage.asset._ref}`
+              ? mockImages[room.featuredImage.asset._ref as keyof typeof mockImages] || `https://images.unsplash.com/${room.featuredImage.asset._ref}`
               : undefined,
             offers: {
               '@type': 'Offer',
